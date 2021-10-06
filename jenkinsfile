@@ -1,9 +1,5 @@
 pipeline {
             agent any
-	    tools{
-	    maven 'Maven'
-	    }
-
 	    
             stages {
                 stage('Git Progress') {
@@ -11,6 +7,10 @@ pipeline {
                 git  branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Shin9184/mvn.git'
             }
         }
+	
+	tools{
+	    maven 'Maven'
+	}
 	
 	stage('Build') { 
             steps {
