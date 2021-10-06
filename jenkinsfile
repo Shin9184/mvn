@@ -10,9 +10,10 @@ pipeline {
                 git  branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Shin9184/mvn.git'
             }
         }
+	
 	stage('Build') {
             steps {
-		sh 'mvn -B -DskipTests clean package'
+		sh 'mvn -B -DskipTests clean build'
             }
         }
         stage('Test') {
