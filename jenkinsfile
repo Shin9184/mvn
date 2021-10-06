@@ -1,8 +1,8 @@
 pipeline {
     agent any
-        //tools{
-	    //maven 'Maven'
-	//}
+        tools{
+	    maven 'Maven'
+	}
 	
 	stages {
 	    stage('Git Progress') {
@@ -11,20 +11,20 @@ pipeline {
                 }
             }
 	
-	    stage('Build') { 
-                steps {
-                    withMaven(maven: 'Maven') {
-		    sh "mvn cleam install"
-		    //sh "mvn clean verify"
-		    }
-                }
-            }
-	    
 	    //stage('Build') { 
                 //steps {
-                    //sh 'mvn -B -DskipTests clean package' 
+                    //withMaven(maven: 'Maven') {
+		    //sh "mvn cleam install"
+		    //sh "mvn clean verify"
+		    //}
                 //}
-            //}	    
+            //}
+	    
+	    stage('Build') { 
+                steps {
+                    sh 'mvn -B -DskipTests clean package' 
+                }
+            }	    
 	
             stage('Test') {
                 steps {
