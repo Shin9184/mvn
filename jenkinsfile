@@ -13,9 +13,13 @@ pipeline {
 	
 	stage('Build') {
             steps {
-		sh 'mvn -B -DskipTests clean build'
+		git url: 'https://github.com/Shin9184/mvn.git'
+		withMaven {
+		sh "mvn clean verify"
+		}
             }
         }
+	
         stage('Test') {
             steps {
                 sh 'mvn test'
