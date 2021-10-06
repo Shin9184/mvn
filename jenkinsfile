@@ -3,19 +3,17 @@ pipeline {
             stages {
                 stage('Git Progress') {
             steps {
-                git  branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Shin9184/springboot_testcode.git'
+                git  branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Shin9184/mvn.git'
             }
         }
-	stage('Gradle Junit Test') {
+	stage('Build') {
             steps {
-                sh 'chmod +x ./gradlew'
-                sh "chmod +x gradlew; ./gradlew test"
+                sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Gradle Build ') {
+        stage('Test') {
             steps {
-                sh 'chmod +x ./gradlew'
-                sh './gradlew clean build'
+                sh 'mvn test'
             }
         }
         stage('Publish Test Result') {
@@ -23,46 +21,6 @@ pipeline {
                 junit '**/build/test-results/test/*.xml'
             }
         }
-	stage('SonarQube analysis') {
-            steps {
-                script {
-                    withSonarQubeEnv() {
-                        sh "./gradlew sonarqube"
-                    }
-                }
-            }
-       }
-	
-        stage('OWASP Dependency-Check') {
-            steps {
-                dependencyCheck additionalArguments: '-s "./" -f "XML" -o "./" --prettyPrint', odcInstallation: 'dependency'
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-                dependencyCheck additionalArguments: '-s "./" -f "HTML" -o "./" --prettyPrint', odcInstallation: 'dependency'
-            }
-        }
         
-	stage('Push image') {
-            steps {
-                script {
-                    checkout scm
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_cred') {
-                        def customImage = docker.build("tlqkddk123/spring")
-                        customImage.push("${env.BUILD_ID}")
-                        customImage.push("latest")
-                    }
-                }
-            }
         }
-	
-        stage ('Anchore test') {
-            steps {
-                script {
-                    def imageLine = 'fivebird/test'
-                    writeFile file: 'fivebird/test', text: imageLine
-                    anchore name: 'fivebird/test', engineCredentialsId: 'anchore_cred', bailOnFail: false
-                }
-            }
-        }
-        
-            }
-        }
+}
