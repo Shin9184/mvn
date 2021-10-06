@@ -1,5 +1,8 @@
 pipeline {
             agent any
+	    tools {
+        	maven 'Maven 3.8.3'
+    	    }
             stages {
                 stage('Git Progress') {
             steps {
@@ -8,7 +11,7 @@ pipeline {
         }
 	stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+		sh 'mvn -Dmaven.test.failure.ignore=true install'
             }
         }
         stage('Test') {
