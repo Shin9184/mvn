@@ -11,7 +11,7 @@ pipeline {
 	
 	stage ('Build') {
 		steps {
-			git url: 'https://https://github.com/Shin9184/mvn.git'
+			git url: 'https://github.com/Shin9184/mvn'
 			withMaven {
 				sh "mvn clean verify"
 			}
