@@ -9,12 +9,14 @@ pipeline {
             }
         }
 	
-	stage('Ant build') {
-            steps {
-                    sh 'chmod +x ./mvnw'
-                    sh './mvnw clean package'
-            }
-        }
+	stage ('Build') {
+		steps {
+			git url: 'https://https://github.com/Shin9184/mvn.git'
+			withMaven {
+				sh "mvn clean verify"
+			}
+		}
+	}
 	
 	
 	
