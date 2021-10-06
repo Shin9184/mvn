@@ -1,8 +1,6 @@
 pipeline {
             agent any
-	    tools{
-	    maven 'Maven'
-	    }
+
 	    
             stages {
                 stage('Git Progress') {
@@ -13,7 +11,7 @@ pipeline {
 	
 	stage('Build') { 
             steps {
-                sh 'mvn -B -DskipTests clean package' 
+                sh 'mvn clean install' 
             }
         }
 	
