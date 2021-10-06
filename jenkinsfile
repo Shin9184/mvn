@@ -11,10 +11,8 @@ pipeline {
 	
 	stage('Ant build') {
             steps {
-                withMaven(installation: 'Maven') {
                     sh 'chmod +x ./mvnw'
                     sh './mvnw clean package'
-		}
             }
         }
 	
