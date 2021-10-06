@@ -15,7 +15,7 @@ pipeline {
                 steps {
                     withMaven(maven: 'Maven') {
 		    sh "mvn cleam install"
-		    sh "mvn clean verify"
+		    //sh "mvn clean verify"
 		    }
                 }
             }
