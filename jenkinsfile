@@ -18,10 +18,10 @@ pipeline {
             steps {
                 sh 'mvn test'
             }
-        }
-        stage('Publish Test Result') {
-            steps {
-                junit '**/build/test-results/test/*.xml'
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
             }
         }
         
