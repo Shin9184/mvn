@@ -1,5 +1,9 @@
 pipeline {
             agent any
+	    tools {
+        	maven "maven"
+        	jdk "JDK"
+    	    }
             stages {
                 stage('Git Progress') {
             steps {
@@ -8,7 +12,7 @@ pipeline {
         }
 	stage('Build') {
             steps {
-		sh 'mvn clean verify'
+		sh 'mvn -B -DskipTests clean package'
             }
         }
         stage('Test') {
