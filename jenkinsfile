@@ -41,7 +41,7 @@ pipeline {
                 steps {
                     script {
                         checkout scm
-                        docker.withRegistry(' ', 'ecr:ap-northeast-2:aws_cred') { 
+                        docker.withRegistry(' ', 'aws_cred') { 
                             def customImage = docker.build("dongsu/spring")
                             customImage.push("${env.BUILD_ID}")
                             customImage.push("latest")
