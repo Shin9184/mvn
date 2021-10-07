@@ -45,7 +45,7 @@ pipeline {
                 steps {
                     script {
                         checkout scm
-                        docker.withRegistry('https://public.ecr.aws/i5e7u5l3', 'ecr:ap-northeast-2:aws_cred') { 
+                        docker.withRegistry('https://479080306347.ecr.eu-west-1.amazonaws.com.amazonaws.com', 'ecr:ID.ecr.eu-west-1.amazonaws.com:aws_cred') { 
                             def customImage = docker.build("public.ecr.aws/i5e7u5l3/test")
                             customImage.push("${env.BUILD_ID}")
                             customImage.push("latest")
