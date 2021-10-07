@@ -42,6 +42,19 @@ pipeline {
                 }
             }
 	    
+	    stage('Push image3') {
+                steps {
+                    script {
+                        checkout scm
+                        withDockerRegistry(credentialsId: 'ecr:ap-northeast-2:aws_cred', url: 'public.ecr.aws/i5e7u5l3/test') {
+                            def customImage = docker.build("public.ecr.aws/i5e7u5l3/test")
+                            customImage.push("${env.BUILD_ID}")
+                            customImage.push("latest")
+                        }
+                    }
+                }
+            }
+	    
 	    stage('Push image2') {
                 steps {
                     script {
