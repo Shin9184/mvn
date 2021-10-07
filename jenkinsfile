@@ -10,15 +10,6 @@ pipeline {
                     git  branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Shin9184/mvn.git'
                 }
             }
-	
-	    //stage('Build') { 
-                //steps {
-                    //withMaven(maven: 'Maven') {
-		    //sh "mvn cleam install"
-		    //sh "mvn clean verify"
-		    //}
-                //}
-            //}
 	    
 	    stage('Build') { 
                 steps {
