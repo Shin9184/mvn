@@ -41,7 +41,7 @@ pipeline {
                 }
             }
 	    
-	    stage('Push image') {
+	    stage('Push image2') {
                 steps {
                     script {
                         checkout scm
