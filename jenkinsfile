@@ -47,8 +47,7 @@ pipeline {
                     script {
                         checkout scm
 			sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/i5e7u5l3'
-			sh 'docker build -t test .'
-			sh 'docker tag test:latest public.ecr.aws/i5e7u5l3/test:latest'
+			sh 'docker build -t public.ecr.aws/i5e7u5l3/test .'
 			sh 'docker push public.ecr.aws/i5e7u5l3/test:latest'
 			
                         //docker.withRegistry('https://479080306347.dkr.ecr.ap-northeast-2.amazonaws.com','ecr:us-east-1:aws_cred') { 
