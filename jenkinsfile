@@ -48,7 +48,7 @@ pipeline {
                         checkout scm
 			sh 'rm -f ~/.dockercfg ~/.docker/config.json || true'
                         docker.withRegistry('https://479080306347.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws_cred') { 
-                            def customImage = docker.build("479080306347.dkr.ecr.us-east-1/test")
+                            def customImage = docker.build("479080306347.dkr.ecr.ap-northeast-2/test")
                             customImage.push("${env.BUILD_ID}")
                             customImage.push("latest")
                         }
