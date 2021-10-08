@@ -42,6 +42,18 @@ pipeline {
                 }
             }
 	    
+	    stage('Push image3') {
+                steps {
+                    script {
+                        checkout scm
+                        sh 'docker build -t test .'
+			sh 'docker tag test:latest public.ecr.aws/i5e7u5l3/test:latest'
+			sh 'docker push public.ecr.aws/i5e7u5l3/test:latest'
+                        }
+                    }
+                }
+            }
+	    
 	    stage('Push image2') {
                 steps {
                     script {
