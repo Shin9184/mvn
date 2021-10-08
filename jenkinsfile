@@ -46,9 +46,9 @@ pipeline {
                 steps {
                     script {
                         checkout scm
-			sh 'rm -f ~/.dockercfg ~/.docker/config.json || true'
-                        docker.withRegistry('public.ecr.aws/i5e7u5l3', 'ecr:us-east-1:aws_cred') { 
-                            //def customImage = docker.build("479080306347.dkr.ecr.ap-northeast-2/test")
+			sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/i5e7u5l3'
+                        docker.withRegistry('https://public.ecr.aws/i5e7u5l3') { 
+                            //def customImage = docker.build("public.ecr.aws/i5e7u5l3/test")
                             customImage.push("${env.BUILD_ID}")
                             customImage.push("latest")
                         }
