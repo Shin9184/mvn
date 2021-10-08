@@ -46,9 +46,11 @@ pipeline {
                 steps {
                     script {
                         checkout scm
+			docker.withRegistry('https://479080306347.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws_cred') {
                         sh 'docker build -t test .'
 			sh 'docker tag test:latest public.ecr.aws/i5e7u5l3/test:latest'
 			sh 'docker push public.ecr.aws/i5e7u5l3/test:latest'
+			}
                     }
                 }
             }
