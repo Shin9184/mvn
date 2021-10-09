@@ -50,7 +50,7 @@ pipeline {
 			//sh 'docker build -t public.ecr.aws/i5e7u5l3/test .'
 			//sh 'docker push public.ecr.aws/i5e7u5l3/test:latest'
 			
-                        docker.withRegistry('https://public.ecr.aws/i5e7u5l3','ecr:us-east-1:aws_cred') { 
+                        docker.withRegistry('https://gallery.ecr.aws/i5e7u5l3','ecr:us-east-1:aws_cred') { 
                             def customImage2 = docker.build("public.ecr.aws/i5e7u5l3/test")
                             customImage2.push("${env.BUILD_ID}")
                             customImage2.push("latest")
