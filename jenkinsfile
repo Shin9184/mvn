@@ -64,8 +64,8 @@ pipeline {
 	    stage('Deploy') {
             	steps {
                     script {
-                        sshagent (credentials: ['argoCD']) {
-                            //sh "ssh -o StrictHostKeyChecking=no ec2-user@13.125.207.83 aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 479080306347.dkr.ecr.ap-northeast-2.amazonaws.com"
+                        sshagent (credentials: ['argocd']) {
+                            sh "ssh -o StrictHostKeyChecking=no ec2-user@13.125.207.83 aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 479080306347.dkr.ecr.ap-northeast-2.amazonaws.com"
 			    sh "ssh -o StrictHostKeyChecking=no ec2-user@13.125.207.83 docker pull 479080306347.dkr.ecr.ap-northeast-2.amazonaws.com/dongsu:latest"
                     	}
                     }
@@ -75,8 +75,8 @@ pipeline {
 	    stage('Deploy2') {
             	steps {
                     script {
-                        sshagent (credentials: ['argoCD']) {
-                            //sh "ssh -o StrictHostKeyChecking=no ec2-user@13.125.207.83 aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/i5e7u5l3"
+                        sshagent (credentials: ['argocd']) {
+                            sh "ssh -o StrictHostKeyChecking=no ec2-user@13.125.207.83 aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/i5e7u5l3"
 			    sh "ssh -o StrictHostKeyChecking=no ec2-user@13.125.207.83 docker pull public.ecr.aws/i5e7u5l3/test:latest"
                     	}
                     }
