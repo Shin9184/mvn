@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: test
-          image: tlqkddk123/spring:latest
+          image: 479080306347.dkr.ecr.ap-northeast-2.amazonaws.com/dongsu:149:latest
           ports:
             - containerPort: 80
