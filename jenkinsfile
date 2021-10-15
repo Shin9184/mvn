@@ -70,7 +70,6 @@ pipeline {
 			    sh "aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 479080306347.dkr.ecr.ap-northeast-2.amazonaws.com"
 			    sh "fluxctl install --git-user=Shin9184 --git-email=sds38839184@gmail.com --git-url=git@github.com:Shin9184/springboot.git --git-branch=main --git-path=templates --namespace=flux | kubectl apply -f –"
 			    sh "kubectl -n flux rollout status deployment/flux"
-			    sh "fluxctl identity --k8s-fwd-ns flux"
                     	}
                     }
             	}
