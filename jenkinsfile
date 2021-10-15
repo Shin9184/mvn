@@ -42,30 +42,30 @@ pipeline {
                 }
             }
 	    
-	    stage('Push image2') {
-                steps {
-                    script {
-                        checkout scm
-			sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/i5e7u5l3'
-			sh 'docker build -t public.ecr.aws/i5e7u5l3/test:${BUILD_NUMBER} .'
-			sh 'docker build -t public.ecr.aws/i5e7u5l3/test .'
-			sh 'docker push public.ecr.aws/i5e7u5l3/test:${BUILD_NUMBER}'
-			sh 'docker push public.ecr.aws/i5e7u5l3/test:latest'
+	    //stage('Push image2') {
+                //steps {
+                    //script {
+                        //checkout scm
+			//sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/i5e7u5l3'
+			//sh 'docker build -t public.ecr.aws/i5e7u5l3/test:${BUILD_NUMBER} .'
+			//sh 'docker build -t public.ecr.aws/i5e7u5l3/test .'
+			//sh 'docker push public.ecr.aws/i5e7u5l3/test:${BUILD_NUMBER}'
+			//sh 'docker push public.ecr.aws/i5e7u5l3/test:latest'
 			
                         //docker.withRegistry('https://479080306347.dkr.ecr.us-east-1.amazonaws.com','ecr:us-east-1:aws_cred') {
                             //def customImage2 = docker.build("public.ecr.aws/i5e7u5l3/test")
                             //customImage2.push("${env.BUILD_ID}")
                             //customImage2.push("latest")
                         //}
-                    }
-                }
-            }
+                    //}
+                //}
+            //}
 	    
 	    stage('Deploy') {
             	steps {
                     script {
                         sshagent (credentials: ['argocd']) {
-                            //sh "ssh -o StrictHostKeyChecking=no ec2-user@3.34.199.116 kubectl create ns flux"
+                            sh "ssh -o StrictHostKeyChecking=no ec2-user@3.34.199.116 kubectl create ns flux"
 			    sh "ssh -o StrictHostKeyChecking=no ec2-user@3.34.199.116 aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 479080306347.dkr.ecr.ap-northeast-2.amazonaws.com"
 			    sh "ssh -o StrictHostKeyChecking=no ec2-user@3.34.199.116 fluxctl install --git-user=Shin9184 --git-email=sds38839184@gmail.com --git-url=git@github.com:Shin9184/springboot.git --git-branch=main --git-path=templates --namespace=flux | kubectl apply -f –"
 			    sh "ssh -o StrictHostKeyChecking=no ec2-user@3.34.199.116 kubectl -n flux rollout status deployment/flux"
