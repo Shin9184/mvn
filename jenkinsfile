@@ -67,8 +67,7 @@ pipeline {
                         sshagent (credentials: ['argocd']) {
                             sh "ssh -o StrictHostKeyChecking=no ec2-user@3.34.199.116 kubectl create ns flux"
 			    sh "ssh -o StrictHostKeyChecking=no ec2-user@3.34.199.116 aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 479080306347.dkr.ecr.ap-northeast-2.amazonaws.com"
-			    sh "ssh -o StrictHostKeyChecking=no ec2-user@3.34.199.116 fluxctl install --git-user=Shin9184 --git-email=sds38839184@gmail.com --git-url=git@github.com:Shin9184/springboot.git --git-branch=main --git-path=templates --namespace=flux"
-			    sh "ssh -o StrictHostKeyChecking=no ec2-user@3.34.199.116 kubectl apply -f –"
+			    sh "ssh -o StrictHostKeyChecking=no ec2-user@3.34.199.116 fluxctl install --git-user=Shin9184 --git-email=sds38839184@gmail.com --git-url=git@github.com:Shin9184/springboot.git --git-branch=main --git-path=templates --namespace=flux | kubectl apply -f -"
 			    sh "ssh -o StrictHostKeyChecking=no ec2-user@3.34.199.116 kubectl -n flux rollout status deployment/flux"
                     	}
                     }
